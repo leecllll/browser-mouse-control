@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser Mouse Control"
+  short_description: "Precise browser-side mouse control with CloakBrowser, Playwright/CDP, and fast/natural/careful profiles."
+  default_prompt: "Use Browser Mouse Control with CloakBrowser and Playwright/CDP to plan the page flow, observe with screenshots and DOM checks, run a tiny test loop, then execute an authorized browser automation workflow with the right mouse-control speed profile."

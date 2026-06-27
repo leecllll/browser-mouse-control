@@ -1,11 +1,11 @@
 ---
-name: cloakbrowser-playwright-control
-description: Use when Codex needs to automate authorized web workflows through CloakBrowser or a CDP-enabled Chrome browser with Playwright, including browser-layer mouse movement, screenshots, DOM/network verification, tiny-loop crawler prototyping, and reliable script scaling with fast, natural, or careful speed profiles.
+name: browser-mouse-control
+description: Use when Codex needs precise browser-side mouse control for authorized web workflows through CloakBrowser or a CDP-enabled Chrome browser with Playwright, including mouse movement, clicks, drag, scroll, screenshots, DOM/network verification, tiny-loop crawler prototyping, and reliable script scaling with fast, natural, or careful speed profiles.
 ---
 
-# CloakBrowser Playwright Control
+# Browser Mouse Control
 
-This skill helps Codex run flexible browser automation through CloakBrowser plus Playwright/CDP. Use it when the user wants high-precision browser-side mouse control, crawler prototyping, screenshot-based inspection, DOM validation, or a repeatable workflow for complex web tasks.
+This skill helps Codex run flexible browser automation with precise browser-side mouse control through CloakBrowser plus Playwright/CDP. Use it when the user wants high-precision browser mouse movement, crawler prototyping, screenshot-based inspection, DOM validation, or a repeatable workflow for complex web tasks.
 
 The goal is not just "click a page". The goal is:
 
@@ -74,20 +74,20 @@ python scripts\run_mouse_precision_profile.py --list-profiles
 
 ## Installing The Skill Into Codex
 
-Copy the folder `skill/cloakbrowser-playwright-control` into the user's Codex skills directory.
+Copy the folder `skill/browser-mouse-control` into the user's Codex skills directory.
 
 macOS example:
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R skill/cloakbrowser-playwright-control ~/.codex/skills/
+cp -R skill/browser-mouse-control ~/.codex/skills/
 ```
 
 Windows PowerShell example when `CODEX_HOME` is set:
 
 ```powershell
 New-Item -ItemType Directory -Force "$env:CODEX_HOME\skills"
-Copy-Item -Recurse ".\skill\cloakbrowser-playwright-control" "$env:CODEX_HOME\skills\"
+Copy-Item -Recurse ".\skill\browser-mouse-control" "$env:CODEX_HOME\skills\"
 ```
 
 After copying, restart the Codex session so the skill list reloads.

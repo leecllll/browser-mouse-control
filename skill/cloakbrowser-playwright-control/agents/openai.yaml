@@ -1,4 +1,0 @@
-interface:
-  display_name: "CloakBrowser Playwright Control"
-  short_description: "CloakBrowser + Playwright/CDP web automation with fast, natural, and careful mouse-control profiles."
-  default_prompt: "Use CloakBrowser with Playwright/CDP to plan the page flow, observe with screenshots and DOM checks, run a tiny test loop, then execute an authorized browser automation workflow with the right speed profile."

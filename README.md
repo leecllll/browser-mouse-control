@@ -1,8 +1,8 @@
-# CloakBrowser Playwright Control
+# Browser Mouse Control
 
 ## English
 
-CloakBrowser Playwright Control is a Codex skill and companion toolkit for authorized browser automation. It combines CloakBrowser, Playwright, Chrome DevTools Protocol, browser screenshots, DOM checks, network-aware validation, and profile-based mouse control.
+Browser Mouse Control is a Codex skill and companion toolkit for authorized browser automation with precise browser-side mouse control. It combines CloakBrowser, Playwright, Chrome DevTools Protocol, browser screenshots, DOM checks, network-aware validation, and speed-profiled mouse movement.
 
 The main idea is simple: before running a full crawler or web task, Codex should first plan the browsing route, inspect the page visually and structurally, run a tiny end-to-end test, fix the fragile points, and only then scale into a complete script.
 
@@ -29,7 +29,7 @@ This project is not intended to bypass login, CAPTCHA, access controls, paywalls
 - Validate state changes with DOM, URL, text, list counts, screenshots, or network results.
 - Run a tiny proof loop before running a complete crawler.
 - Keep logs, output JSON, screenshots, and recovery hints.
-- Package the workflow as a Codex skill under `skill/cloakbrowser-playwright-control`.
+- Package the workflow as a Codex skill under `skill/browser-mouse-control`.
 
 ### Speed Profiles
 
@@ -64,7 +64,7 @@ For complex, changing, or risk-sensitive flows where reliability matters more th
 ### Repository Layout
 
 ```text
-cloakbrowser-playwright-control/
+browser-mouse-control/
   README.md
   requirements.txt
   assets/
@@ -81,7 +81,7 @@ cloakbrowser-playwright-control/
     save_google_sunset_images.py
     start_cloakbrowser_9222.py
   skill/
-    cloakbrowser-playwright-control/
+    browser-mouse-control/
       SKILL.md
       agents/openai.yaml
       assets/
@@ -132,20 +132,20 @@ python scripts\run_mouse_precision_profile.py --profile fast
 
 ### Install As A Codex Skill
 
-Copy `skill/cloakbrowser-playwright-control` into your Codex user skills directory.
+Copy `skill/browser-mouse-control` into your Codex user skills directory.
 
 macOS:
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R skill/cloakbrowser-playwright-control ~/.codex/skills/
+cp -R skill/browser-mouse-control ~/.codex/skills/
 ```
 
 Windows PowerShell when `CODEX_HOME` is set:
 
 ```powershell
 New-Item -ItemType Directory -Force "$env:CODEX_HOME\skills"
-Copy-Item -Recurse ".\skill\cloakbrowser-playwright-control" "$env:CODEX_HOME\skills\"
+Copy-Item -Recurse ".\skill\browser-mouse-control" "$env:CODEX_HOME\skills\"
 ```
 
 Restart Codex after copying the skill.
@@ -229,7 +229,7 @@ See `references/workflow.md` for more practical guidance.
 
 ## 中文
 
-CloakBrowser Playwright Control 是一个给 Codex 使用的网页自动化 Skill / 工具包。它把 CloakBrowser、Playwright、Chrome DevTools Protocol、截图、DOM 检查、网络状态校验和分档鼠标控制整合在一起。
+Browser Mouse Control 是一个给 Codex 使用的网页鼠标控制 Skill / 工具包。它把 CloakBrowser、Playwright、Chrome DevTools Protocol、截图、DOM 检查、网络状态校验和分档鼠标控制整合在一起。
 
 核心思路是：真正执行完整任务之前，先规划浏览路径，观察网页截图和 DOM，跑一个最小闭环，修正脆弱点，然后再扩展成完整脚本。
 
@@ -301,23 +301,23 @@ python scripts\run_mouse_precision_profile.py --profile fast
 
 ### 安装成 Codex Skill
 
-把 `skill/cloakbrowser-playwright-control` 这个文件夹复制到 Codex 的用户 Skills 目录。
+把 `skill/browser-mouse-control` 这个文件夹复制到 Codex 的用户 Skills 目录。
 
 macOS：
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R skill/cloakbrowser-playwright-control ~/.codex/skills/
+cp -R skill/browser-mouse-control ~/.codex/skills/
 ```
 
 Windows PowerShell 中，如果设置了 `CODEX_HOME`：
 
 ```powershell
 New-Item -ItemType Directory -Force "$env:CODEX_HOME\skills"
-Copy-Item -Recurse ".\skill\cloakbrowser-playwright-control" "$env:CODEX_HOME\skills\"
+Copy-Item -Recurse ".\skill\browser-mouse-control" "$env:CODEX_HOME\skills\"
 ```
 
-复制后重启 Codex 会话，看到 `cloakbrowser-playwright-control` 即可使用。
+复制后重启 Codex 会话，看到 `browser-mouse-control` 即可使用。
 
 ### 三档速度模式
 
