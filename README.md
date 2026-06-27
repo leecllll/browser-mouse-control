@@ -1,8 +1,8 @@
-# Browser Mouse Control
+# Browser Mouse Control（鼠标控制）
 
 ## English
 
-Browser Mouse Control is a Codex skill and companion toolkit for authorized browser automation with precise browser-side mouse control. It combines CloakBrowser, Playwright, Chrome DevTools Protocol, browser screenshots, DOM checks, network-aware validation, and speed-profiled mouse movement.
+Browser Mouse Control（鼠标控制） is a Codex skill and companion toolkit for authorized browser automation with precise browser-side mouse control. It combines CloakBrowser, Playwright, Chrome DevTools Protocol, browser screenshots, DOM checks, network-aware validation, and speed-profiled mouse movement.
 
 The main idea is simple: before running a full crawler or web task, Codex should first plan the browsing route, inspect the page visually and structurally, run a tiny end-to-end test, fix the fragile points, and only then scale into a complete script.
 
@@ -229,7 +229,7 @@ See `references/workflow.md` for more practical guidance.
 
 ## 中文
 
-Browser Mouse Control 是一个给 Codex 使用的网页鼠标控制 Skill / 工具包。它把 CloakBrowser、Playwright、Chrome DevTools Protocol、截图、DOM 检查、网络状态校验和分档鼠标控制整合在一起。
+Browser Mouse Control（鼠标控制）是一个给 Codex 使用的网页鼠标控制 Skill / 工具包。它把 CloakBrowser、Playwright、Chrome DevTools Protocol、截图、DOM 检查、网络状态校验和分档鼠标控制整合在一起。
 
 核心思路是：真正执行完整任务之前，先规划浏览路径，观察网页截图和 DOM，跑一个最小闭环，修正脆弱点，然后再扩展成完整脚本。
 

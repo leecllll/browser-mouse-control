@@ -3,7 +3,7 @@ name: browser-mouse-control
 description: Use when Codex needs precise browser-side mouse control for authorized web workflows through CloakBrowser or a CDP-enabled Chrome browser with Playwright, including mouse movement, clicks, drag, scroll, screenshots, DOM/network verification, tiny-loop crawler prototyping, and reliable script scaling with fast, natural, or careful speed profiles.
 ---
 
-# Browser Mouse Control
+# Browser Mouse Control（鼠标控制）
 
 This skill helps Codex run flexible browser automation with precise browser-side mouse control through CloakBrowser plus Playwright/CDP. Use it when the user wants high-precision browser mouse movement, crawler prototyping, screenshot-based inspection, DOM validation, or a repeatable workflow for complex web tasks.
 
