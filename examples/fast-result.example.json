@@ -1,0 +1,113 @@
+{
+  "ok": true,
+  "duration_seconds": 5.621,
+  "state": {
+    "hits": [
+      "1",
+      "4",
+      "2",
+      "7",
+      "3",
+      "8",
+      "5",
+      "6"
+    ],
+    "moves": 104,
+    "dragPercent": 100,
+    "scrollPercent": 100
+  },
+  "trace": [
+    {
+      "action": "click",
+      "target": 1,
+      "point": [
+        209,
+        216
+      ]
+    },
+    {
+      "action": "click",
+      "target": 4,
+      "point": [
+        1071,
+        216
+      ]
+    },
+    {
+      "action": "click",
+      "target": 2,
+      "point": [
+        496,
+        216
+      ]
+    },
+    {
+      "action": "click",
+      "target": 7,
+      "point": [
+        784,
+        344
+      ]
+    },
+    {
+      "action": "click",
+      "target": 3,
+      "point": [
+        784,
+        216
+      ]
+    },
+    {
+      "action": "click",
+      "target": 8,
+      "point": [
+        1071,
+        344
+      ]
+    },
+    {
+      "action": "click",
+      "target": 5,
+      "point": [
+        209,
+        344
+      ]
+    },
+    {
+      "action": "click",
+      "target": 6,
+      "point": [
+        496,
+        343
+      ]
+    },
+    {
+      "action": "drag",
+      "from": [
+        171,
+        600
+      ],
+      "to": [
+        1111,
+        600
+      ]
+    },
+    {
+      "action": "scroll",
+      "amount": 900
+    },
+    {
+      "action": "scroll",
+      "amount": 1200
+    },
+    {
+      "action": "scroll",
+      "amount": 1600
+    },
+    {
+      "action": "scroll",
+      "amount": 1800
+    }
+  ],
+  "output": "/Users/apple/Documents/Codex/2026-06-27/claude-code-playwright-cloakbroser-chrome-ai/output/mouse_precision_fast"
+}
