@@ -1,0 +1,10 @@
+.venv/
+.venv-cloak/
+__pycache__/
+*.pyc
+.DS_Store
+output/
+logs/
+.chrome-profile*/
+.cloak-profile*/
+
