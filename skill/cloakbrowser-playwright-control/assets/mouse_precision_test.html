@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mouse Precision Test</title>
+  <style>
+    :root {
+      font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #f4f6f8;
+      color: #17202a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 1800px;
+      background: linear-gradient(180deg, #f7fafc 0%, #eef4f1 100%);
+      cursor: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px;
+      border-bottom: 1px solid #d8e1e8;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 48px));
+      margin: 28px auto 120px;
+    }
+
+    .status {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    .pill {
+      min-width: 92px;
+      padding: 8px 10px;
+      border: 1px solid #cbd6dd;
+      border-radius: 999px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .section {
+      margin-top: 24px;
+      padding: 22px;
+      border: 1px solid #d8e1e8;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(31, 46, 58, 0.07);
+    }
+
+    .section h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+    }
+
+    .targets {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .target {
+      display: grid;
+      place-items: center;
+      min-height: 112px;
+      border: 2px solid #b9c8d2;
+      border-radius: 8px;
+      background: #f9fbfc;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+    }
+
+    .target:hover {
+      border-color: #2f6f89;
+      background: #eaf5f7;
+      transform: translateY(-1px);
+    }
+
+    .target.hit {
+      border-color: #17814f;
+      background: #e6f7ee;
+    }
+
+    .drag-area {
+      position: relative;
+      min-height: 180px;
+      border: 1px dashed #9fb1bc;
+      border-radius: 8px;
+      background: #f8fbfa;
+      overflow: hidden;
+    }
+
+    .drag-track {
+      position: absolute;
+      left: 70px;
+      right: 70px;
+      top: 82px;
+      height: 14px;
+      border-radius: 999px;
+      background: #d5e0e5;
+    }
+
+    .drag-knob {
+      position: absolute;
+      left: 70px;
+      top: 63px;
+      width: 54px;
+      height: 54px;
+      border: 2px solid #2f6f89;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(27, 47, 60, 0.16);
+    }
+
+    .scroll-box {
+      height: 240px;
+      overflow: auto;
+      border: 1px solid #ccd8df;
+      border-radius: 8px;
+      background: #fbfcfd;
+    }
+
+    .scroll-item {
+      min-height: 76px;
+      padding: 22px;
+      border-bottom: 1px solid #e2e9ee;
+      font-weight: 700;
+    }
+
+    .scroll-item.reached {
+      background: #fff3d8;
+    }
+
+    pre {
+      min-height: 180px;
+      overflow: auto;
+      padding: 14px;
+      border-radius: 8px;
+      background: #111923;
+      color: #e8f0f4;
+      line-height: 1.45;
+      font-size: 13px;
+    }
+
+    #cursor {
+      position: fixed;
+      z-index: 99999;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      margin: -12px 0 0 -12px;
+      border: 3px solid #d93025;
+      border-radius: 999px;
+      background: rgba(217, 48, 37, 0.14);
+      box-shadow: 0 0 0 5px rgba(217, 48, 37, 0.14), 0 0 18px rgba(217, 48, 37, 0.45);
+      pointer-events: none;
+      transform: translate(-100px, -100px);
+    }
+
+    .trail {
+      position: fixed;
+      z-index: 99998;
+      left: 0;
+      top: 0;
+      width: 6px;
+      height: 6px;
+      margin: -3px 0 0 -3px;
+      border-radius: 999px;
+      background: rgba(217, 48, 37, 0.38);
+      pointer-events: none;
+      transition: opacity 800ms ease, transform 800ms ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
+  <header>
+    <h1>Mouse Precision Test</h1>
+    <div class="status">
+      <div class="pill">Hits <span id="hits">0</span>/8</div>
+      <div class="pill">Moves <span id="moves">0</span></div>
+      <div class="pill">Drag <span id="dragState">0%</span></div>
+      <div class="pill">Scroll <span id="scrollState">0%</span></div>
+    </div>
+  </header>
+  <main>
+    <section class="section">
+      <h2>点击命中测试</h2>
+      <div class="targets">
+        <button class="target" data-target="1">Target 1</button>
+        <button class="target" data-target="2">Target 2</button>
+        <button class="target" data-target="3">Target 3</button>
+        <button class="target" data-target="4">Target 4</button>
+        <button class="target" data-target="5">Target 5</button>
+        <button class="target" data-target="6">Target 6</button>
+        <button class="target" data-target="7">Target 7</button>
+        <button class="target" data-target="8">Target 8</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>拖拽测试</h2>
+      <div class="drag-area" id="dragArea">
+        <div class="drag-track"></div>
+        <div class="drag-knob" id="dragKnob"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>滚动测试</h2>
+      <div class="scroll-box" id="scrollBox">
+        <div class="scroll-item">Scroll Item 1</div>
+        <div class="scroll-item">Scroll Item 2</div>
+        <div class="scroll-item">Scroll Item 3</div>
+        <div class="scroll-item">Scroll Item 4</div>
+        <div class="scroll-item">Scroll Item 5</div>
+        <div class="scroll-item">Scroll Item 6</div>
+        <div class="scroll-item">Scroll Item 7</div>
+        <div class="scroll-item">Scroll Item 8</div>
+        <div class="scroll-item">Scroll Item 9</div>
+        <div class="scroll-item reached" id="scrollGoal">Goal Reached</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>事件日志</h2>
+      <pre id="log"></pre>
+    </section>
+  </main>
+  <script>
+    const state = {
+      hits: new Set(),
+      moves: 0,
+      dragPercent: 0,
+      scrollPercent: 0,
+      events: []
+    };
+
+    const cursor = document.querySelector("#cursor");
+    const logEl = document.querySelector("#log");
+    const dragKnob = document.querySelector("#dragKnob");
+    const dragArea = document.querySelector("#dragArea");
+    const scrollBox = document.querySelector("#scrollBox");
+    let lastTrail = 0;
+    let dragging = false;
+
+    function log(event, detail = {}) {
+      state.events.push({
+        event,
+        detail,
+        at: new Date().toISOString()
+      });
+      state.events = state.events.slice(-18);
+      logEl.textContent = JSON.stringify({
+        hits: [...state.hits],
+        moves: state.moves,
+        dragPercent: state.dragPercent,
+        scrollPercent: state.scrollPercent,
+        recent: state.events
+      }, null, 2);
+      document.querySelector("#hits").textContent = state.hits.size;
+      document.querySelector("#moves").textContent = state.moves;
+      document.querySelector("#dragState").textContent = `${Math.round(state.dragPercent)}%`;
+      document.querySelector("#scrollState").textContent = `${Math.round(state.scrollPercent)}%`;
+      document.body.dataset.testState = JSON.stringify({
+        hits: [...state.hits],
+        moves: state.moves,
+        dragPercent: state.dragPercent,
+        scrollPercent: state.scrollPercent
+      });
+    }
+
+    document.addEventListener("mousemove", event => {
+      state.moves += 1;
+      cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+      const now = performance.now();
+      if (now - lastTrail > 52) {
+        lastTrail = now;
+        const dot = document.createElement("div");
+        dot.className = "trail";
+        dot.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+        document.body.appendChild(dot);
+        requestAnimationFrame(() => {
+          dot.style.opacity = "0";
+          dot.style.transform = `translate(${event.clientX}px, ${event.clientY}px) scale(0.4)`;
+        });
+        setTimeout(() => dot.remove(), 850);
+      }
+      if (dragging) updateDrag(event.clientX);
+    }, true);
+
+    document.querySelectorAll(".target").forEach(button => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.target;
+        state.hits.add(id);
+        button.classList.add("hit");
+        log("target-click", { id });
+      });
+    });
+
+    dragKnob.addEventListener("mousedown", event => {
+      dragging = true;
+      event.preventDefault();
+      log("drag-start", { x: event.clientX });
+    });
+
+    document.addEventListener("mouseup", event => {
+      if (!dragging) return;
+      dragging = false;
+      updateDrag(event.clientX);
+      log("drag-end", { percent: state.dragPercent });
+    });
+
+    function updateDrag(clientX) {
+      const rect = dragArea.getBoundingClientRect();
+      const min = rect.left + 70;
+      const max = rect.right - 124;
+      const x = Math.max(min, Math.min(max, clientX - 27));
+      dragKnob.style.left = `${x - rect.left}px`;
+      state.dragPercent = ((x - min) / (max - min)) * 100;
+      document.querySelector("#dragState").textContent = `${Math.round(state.dragPercent)}%`;
+    }
+
+    scrollBox.addEventListener("scroll", () => {
+      state.scrollPercent = (scrollBox.scrollTop / (scrollBox.scrollHeight - scrollBox.clientHeight)) * 100;
+      if (state.scrollPercent > 92) log("scroll-goal", { percent: state.scrollPercent });
+      else log("scroll", { percent: state.scrollPercent });
+    });
+
+    log("ready");
+  </script>
+</body>
+</html>
